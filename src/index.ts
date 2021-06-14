@@ -6,7 +6,9 @@ import {
     Listener,
     AfterSetEvent,
     BeforeSetEvent,
-    Visitor
+    Visitor,
+    ScoreStrategy,
+    Found
 } from "./types/shared";
 
 /**@description Observer (Pub/Sub) example */
@@ -68,6 +70,25 @@ function factoryDatabase<T extends BaseRecord>() {
         visit(visitor: Visitor<T>) {
             Object.values(this.records).forEach(visitor);
         }
+
+        selectBest(scoreStrategy: ScoreStrategy<T>) {
+            const found: Found<T> = { max: 0, item: undefined };
+
+            const scoreReducer = (acc: Found<T>, current: T) => {
+                const score = scoreStrategy(current);
+
+                if (score > acc.max) {
+                    acc.max = score;
+                    acc.item = current;
+                }
+
+                return acc;
+            }
+
+            Object.values(this.records).reduce(scoreReducer, found);
+
+            return found.item
+        }
     }
 
     return InMemoryDatabase;
@@ -83,13 +104,19 @@ DB.client
 
 unsubscribe();
 
-DB.client.set({ id: 'Venusaur', attack: 30, defense: 50 });
-DB.client.set({ id: 'Ivysaur', attack: 40, defense: 40 });
-
-DB.client.onBeforeAdd(
-    ({ newIncomeValue, value }) => console.table([newIncomeValue, value])
-);
+DB.client
+    .set({ id: 'Venusaur', attack: 30, defense: 50 })
+    .set({ id: 'Ivysaur', attack: 40, defense: 40 })
+    .onBeforeAdd(
+        ({ newIncomeValue, value }) => console.table([newIncomeValue, value])
+    );
 
 DB.client.set({ id: 'Venusaur', attack: 35, defense: 60 });
 
 DB.client.visit((item) => console.log(item.id));
+
+const bestDefensive = DB.client.selectBest(({ defense }) => defense)?.id;
+const bestAttack = DB.client.selectBest(({ attack }) => attack)?.id;
+
+console.log(`Best defense -> ${bestDefensive}`);
+console.log(`Best attack -> ${bestAttack}`);
