@@ -2,8 +2,9 @@
 Projeto de estudo sobre Design Patterns com TypeScript 
 
 
-- [Factory](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L4-L23)
-- [Singleton](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L6-L8)
-- [Observer](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L11-L26)
-- [Visitor](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L68-L69)
-- [Strategy](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L74-L91)
+- [Observer](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L16-L31)
+- [Factory](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L33-L97)
+- [Singleton](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L36-L41)
+- [Visitor](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L72-L74)
+- [Strategy](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L76-L94)
+- [Adapter](https://github.com/diegodario88/designpatterns-study/blob/main/src/index.ts#L101-L106)

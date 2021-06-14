@@ -98,6 +98,7 @@ function factoryDatabase<T extends BaseRecord>() {
 
 const DB = factoryDatabase<Pokemon>();
 
+/**@description Adapter example */
 class PokemonDBAdapter implements RecordHandler<Pokemon> {
     addRecord(record: Pokemon) {
         DB.client.set(record);
