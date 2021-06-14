@@ -16,6 +16,10 @@ export interface BaseRecord {
     id: string;
 }
 
+export interface RecordHandler<T> {
+    addRecord(record: T): void;
+}
+
 export interface Database<T extends BaseRecord> {
     set(newValue: T): void;
     get(id: string): T | undefined;

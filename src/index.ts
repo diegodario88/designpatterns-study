@@ -8,8 +8,10 @@ import {
     BeforeSetEvent,
     Visitor,
     ScoreStrategy,
-    Found
+    Found,
+    RecordHandler
 } from "./types/shared";
+import { fileLoader } from './file-loader';
 
 /**@description Observer (Pub/Sub) example */
 function createObserver<EventType>(): ObserverPayload<EventType> {
@@ -96,7 +98,16 @@ function factoryDatabase<T extends BaseRecord>() {
 
 const DB = factoryDatabase<Pokemon>();
 
+class PokemonDBAdapter implements RecordHandler<Pokemon> {
+    addRecord(record: Pokemon) {
+        DB.client.set(record);
+    }
+}
+
 const unsubscribe = DB.client.onAfterAdd(({ value }) => console.log(value));
+
+const path = `${process.cwd()}/data.json`;
+fileLoader(path, new PokemonDBAdapter());
 
 DB.client
     .set({ id: 'Bulbasaur', attack: 50, defense: 20 })

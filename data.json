@@ -1,0 +1,22 @@
+[
+    {
+        "id": "Spectrier",
+        "attack": 100,
+        "defense": 20
+    },
+    {
+        "id": "Arctovish",
+        "attack": 20,
+        "defense": 80
+    },
+    {
+        "id": "Dracozolt",
+        "attack": 45,
+        "defense": 25
+    },
+    {
+        "id": "Indeedee",
+        "attack": 55,
+        "defense": 45
+    }
+]
