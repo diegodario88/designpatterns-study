@@ -5,7 +5,8 @@ import {
     ObserverPayload,
     Listener,
     AfterSetEvent,
-    BeforeSetEvent
+    BeforeSetEvent,
+    Visitor
 } from "./types/shared";
 
 /**@description Observer (Pub/Sub) example */
@@ -63,6 +64,10 @@ function factoryDatabase<T extends BaseRecord>() {
         onAfterAdd(listener: Listener<AfterSetEvent<T>>) {
             return this.afterAddListeners.subscribe(listener);
         }
+
+        visit(visitor: Visitor<T>) {
+            Object.values(this.records).forEach(visitor);
+        }
     }
 
     return InMemoryDatabase;
@@ -87,3 +92,4 @@ DB.client.onBeforeAdd(
 
 DB.client.set({ id: 'Venusaur', attack: 35, defense: 60 });
 
+DB.client.visit((item) => console.log(item.id));

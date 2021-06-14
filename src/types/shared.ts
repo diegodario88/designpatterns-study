@@ -1,4 +1,7 @@
 export type Listener<T> = (env: T) => void; 
+
+export type Visitor<T> = (item: T) => void;
+
 export interface Pokemon {
     id: string;
     attack: number;
@@ -14,6 +17,7 @@ export interface Database<T extends BaseRecord> {
     get(id: string): T | undefined;
     onBeforeAdd(listener: Listener<BeforeSetEvent<T>>): () => void;
     onAfterAdd(listener: Listener<AfterSetEvent<T>>): () => void;
+    visit(visitor: Visitor<T>): void;
 }
 
 export interface ObserverPayload<T> {
